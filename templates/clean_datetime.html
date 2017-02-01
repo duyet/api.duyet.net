@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cleaning Skill - duyet.net</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>api.duyet.net - Clean Datetime</h1>
+            <p class="">Cleaning datetime from raw text.</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="col-md-4 col-xs-12">
+            <form action="#" id="form" method="POST">
+                <fieldset>
+                    <legend>Clean datetime</legend>
+                            <label for="id_text">Enter text</label>
+                            <div>
+                                <input class="form-control" id="id_text" name="text" value="2-16">
+                            </div>
+                            <br>
+                            <button type="submit" id="submit" class="btn btn-info">
+                                Clean
+                            </button>
+                </fieldset>
+            </form>
+        </div>
+        <div class="col-md-4 col-xs-12 result_panel" style="display:none">
+            <div class="span-9 last">
+                <h4>Results</h4>
+                <div style="    font-size: 2em;
+                    padding: 10px;
+                    border: 1px dashed #bfbebe;
+                    margin: 20px 0;
+                    color: #03A9F4;" class="ajax_response"></div>
+                <p>Raw: <span id="raw"></span></p>
+                <p>Time: <span id="time"></span></p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#submit').click(function() {
+        var text = $('#id_text').val();
+        if (!text) return alert('Please enter text!');
+
+        $.get("/api/v1/clean_datetime?datetime=" + text, function(data) {
+            $(".result_panel").hide();
+            if (data && data.message == 'error') return alert('Something went wrong! See console.');
+
+           
+            $('span#name').text(text);
+            $('.ajax_response').text(data.cleaned);
+            $('#raw').text(data.raw);
+            $('#time').text(data.time.toFixed(4) + 's');
+
+            $(".result_panel").show();
+        });
+
+        return false;
+    })
+})
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-92451506-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>

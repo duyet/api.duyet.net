@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sentiment NLP - duyet.net</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style type="text/css">
+    h4 {
+        margin-top: 25px;
+    }
+    
+    .row {
+        margin-bottom: 20px;
+    }
+    
+    .row .row {
+        margin-top: 10px;
+        margin-bottom: 0;
+    }
+    
+    [class*="col-"] {
+        /*padding-top: 15px;
+        padding-bottom: 15px;
+        background-color: #eee;
+        background-color: rgba(86, 61, 124, .15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86, 61, 124, .2);*/
+    }
+    
+    hr {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+    
+    fieldset {
+        padding: 0 1em 1em 1em;
+        margin: 1.6em 0;
+    }
+    
+    fieldset {
+        padding: 1.4em;
+        margin: 0 0 1.5em 0;
+        border: 1px solid #ccc;
+    }
+    
+    legend {
+        padding-left: .8em;
+        padding-right: .8em;
+        border-bottom: 0;
+        display: inline-block;
+    }
+    
+    legend {
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+    
+    ul.form {
+        list-style-type: none;
+    }
+    
+    ul {
+        /*margin-left: 1.5em;*/
+    }
+    
+    legend+* {
+        margin-top: 1em;
+    }
+    
+    hr,
+    p,
+    ul,
+    ol,
+    dl,
+    pre,
+    blockquote,
+    address,
+    table,
+    form {
+        margin-bottom: 1.6em;
+    }
+    
+    textarea:focus,
+    input[type='text']:focus,
+    input[type='password']:focus,
+    select:focus {
+        border-color: #888;
+        outline: 2px solid #ffa;
+    }
+    
+    :focus {
+        outline: 0;
+    }
+    
+    textarea,
+    input {
+        padding: .3em .4em .15em .4em;
+    }
+    
+    textarea,
+    input[type='text'],
+    input[type='password'],
+    select {
+        border: 1px solid #ccc;
+        background: #fff;
+    }
+    
+    .error,
+    .notice,
+    .success {
+        padding: .8em;
+        margin-bottom: 1.6em;
+        border: 2px solid #ddd;
+    }
+    
+    .notice {
+        background: #FFF6BF;
+        color: #514721;
+        border-color: #FFD324;
+    }
+    
+    .success {
+        background: #E6EFC2;
+        color: #264409;
+        border-color: #C6D880;
+    }
+    
+    body .positive {
+        color: #529214;
+    }
+    
+    .large {
+        font-size: 1.2em;
+        line-height: 2.5em;
+        margin-bottom: 1.25em;
+    }
+    
+    .quiet {
+        color: #666;
+    }
+    
+    body .negative {
+        color: #d12f19;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>api.duyet.net - Analyze Sentiment</h1>
+            <p class="">This is a demonstration of <strong>sentiment analysis</strong> using a NLTK 2.0.4 powered text classification process. It can tell you whether it thinks the text you enter below expresses <span class="positive">positive</span> sentiment, <span class="negative">negative</span> sentiment, or if it's <span>neutral</span></p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="col-md-8 col-xs-12">
+            <form action="#" id="form" method="POST">
+                <fieldset>
+                    <legend>Analyze Sentiment</legend>
+                    <ul class="form">
+                        <li>
+                            <label for="id_text">Enter text</label>
+                            <div>
+                                <textarea class="form-control" id="id_text" rows="12" cols="38" name="text">great movie</textarea>
+                            </div>
+                            <p class="notice">Enter up to 50000 characters</p>
+                        </li>
+                    </ul>
+                    <button type="submit" id="submit" class="btn btn-info">
+                        Analysis
+                    </button>
+                </fieldset>
+            </form>
+        </div>
+        <div class="col-md-4 col-xs-12 result_panel" style="display:none">
+            <div class="span-9 last">
+                <h4>Sentiment Analysis Results</h4>
+                <p class="success">The text is <strong class="ajax_response large positive">pos</strong>.</p>
+                <p>The final sentiment is determined by looking at the classification probabilities below.</p>
+                <h5>Subjectivity</h5>
+                <ul>
+                    <li class="quiet">neutral: <span class="probability_neu"></span></li>
+                    <li><strong class="polar">polar: 0.9</strong></li>
+                </ul>
+                <h5>Polarity</h5>
+                <ul>
+                    <li class="positive">
+                        <strong>pos: 0.7</strong>
+                    </li>
+                    <li class="negative">neg: 0.3
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#submit').click(function() {
+        var text = $('#id_text').val();
+        if (!text) return alert('Please enter text!');
+
+        $.get("/api/v1/senti?text=" + text, function(data) {
+            $(".result_panel").hide();
+            if (data && data.message == 'error') return alert('Something went wrong! See console.');
+
+            var text_class = data.label == 'pos' ? 'positive' : (data.label == 'neg' ? 'negative' : 'quiet')
+
+            $('.ajax_response').removeClass('positive negative').addClass(text_class).text(data.label)
+            $('.probability_neu').text(data.probability.neutral)
+            $('.positive strong').text('positive: ' + data.probability.pos)
+            $('.negative strong').text('negative: ' + data.probability.neg)
+            $('strong.polar').text('polar: ' + Math.max(data.probability.neg, data.probability.pos))
+
+            $(".result_panel").show();
+        });
+
+        return false;
+    })
+})
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-92451506-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>

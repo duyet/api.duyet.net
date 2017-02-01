@@ -1,0 +1,75 @@
+h1 {
+  font-size: 34px;
+}
+
+header h1 {
+  line-height: 1.45em;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+h1 b {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+}
+
+.l--page {
+  /*width: 944px;*/
+  margin-left: auto;
+  margin-right: auto;
+}
+
+header {
+  border-bottom: solid 1px rgba(0,0,0,0.4);
+  background-color: #183D4E;
+  color: white;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+header h1 {
+  font-size: 30px;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  -webkit-font-smoothing: antialiased;
+}
+
+header h1 .optional {
+  display: none;
+}
+
+@media (min-width: 1064px) {
+  header h1 .optional {
+    display: inline;
+  }
+}
+
+@media (min-height: 700px) {
+  header h1 {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+}
+
+@media (min-height: 800px) {
+  header h1 {
+    font-size: 34px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+}
+
+.intro-line {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+/*#togger_view, #togger_view a {
+  color: #DDD;
+}*/
+
+footer {
+  margin-bottom: 40px;
+}
