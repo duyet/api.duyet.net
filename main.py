@@ -17,8 +17,8 @@ app = Flask(__name__)
 app.config['DEBUG'] = True
 
 limiter = Limiter(
-    app,
-    key_func=get_remote_address,
+	app,
+	key_func=get_remote_address,
 )
 
 def root_dir():  # pragma: no cover
@@ -27,11 +27,6 @@ def root_dir():  # pragma: no cover
 def get_file(filename):  # pragma: no cover
     try:
         src = os.path.join(root_dir(), filename)
-        # Figure out how flask returns static files
-        # Tried:
-        # - render_template
-        # - send_file
-        # This should not be so non-obvious
         return open(src).read()
     except IOError as exc:
         return str(exc)
@@ -58,6 +53,12 @@ def gender_api():
 	gender = name_to_gender(name)
 	e_time = time.time() - s_time
 	return jsonify(name=name, gender=gender, time=e_time)
+
+@app.route('/gender')
+@limiter.exempt
+def gender_view():
+    return render_template('gender.html')
+
 
 """ Relevant api skills """
 @app.route('/api/v1/relevant_skill')
@@ -135,20 +136,15 @@ def senti_api():
 	except:
 		return jsonify(message='error')
 
-
-###############################################
-# Demo UI
-###############################################
-
 @app.route('/senti')
 @limiter.exempt
 def senti_view():
     return render_template('senti.html')
 
-@app.route('/gender')
-@limiter.exempt
-def gender_view():
-    return render_template('gender.html')
+
+###############################################
+# Demo UI
+###############################################
 
 @app.route('/relevant_skill')
 @limiter.exempt
