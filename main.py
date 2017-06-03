@@ -72,6 +72,12 @@ def skill_api():
 	e_time = time.time() - s_time
 	return jsonify(relevant_skill=skill, time=e_time)
 
+@app.route('/relevant_skill')
+@limiter.exempt
+def relevant_skill_view():
+    return render_template('relevant_skill.html')
+
+
 
 """ Skill Cleaning """
 @app.route('/api/v1/clean_skill')
@@ -145,11 +151,6 @@ def senti_view():
 ###############################################
 # Demo UI
 ###############################################
-
-@app.route('/relevant_skill')
-@limiter.exempt
-def relevant_skill_view():
-    return render_template('relevant_skill.html')
 
 @app.route('/clean_skill')
 @limiter.exempt
