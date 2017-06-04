@@ -42,7 +42,6 @@ To deploy the application:
    ```
    appcfg.py -A <your-project-id> --oauth2 update .
    ```
-1. Congratulations!  Your application is now live at your-app-id.appspot.com
 
 ### Feedback
 Star this repo if you found it useful. Use the github issue tracker to give
@@ -55,3 +54,4 @@ See [LICENSE](LICENSE)
 ## Author
 
 Van-Duyet Le (@duyetdev)
+
