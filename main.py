@@ -59,7 +59,6 @@ def gender_api():
 def gender_view():
     return render_template('gender.html')
 
-
 """ Relevant api skills """
 @app.route('/api/v1/relevant_skill')
 @limiter.limit("5000 per day")
@@ -77,8 +76,6 @@ def skill_api():
 def relevant_skill_view():
     return render_template('relevant_skill.html')
 
-
-
 """ Skill Cleaning """
 @app.route('/api/v1/clean_skill')
 @limiter.limit("5000 per day")
@@ -90,7 +87,6 @@ def clean_skill():
 	print result, skill
 	e_time = time.time() - s_time
 	return jsonify(raw=skill, cleaned=result, time=e_time)
-
 
 """ Skill Cleaning """
 @app.route('/api/v1/clean_datetime')
@@ -162,11 +158,6 @@ def clean_skill_view():
 def clean_datetime_view():
     return render_template('clean_datetime.html')
 
-@app.route('/nn')
-@limiter.exempt
-def neural_network():
-    return render_template('nn/index.html')
-
 @app.route('/profile_faker')
 @limiter.exempt
 def profile_faker_view():
@@ -177,3 +168,9 @@ def profile_faker_view():
 def page_not_found(e):
 	"""Return a custom 404 error."""
 	return 'Sorry, nothing at this URL.', 404
+
+
+@app.route('/nn')
+@limiter.exempt
+def neural_network():
+    return render_template('nn/index.html')
