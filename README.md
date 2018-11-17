@@ -11,13 +11,13 @@ See the README file for directions. You'll need python 2.7 and [pip 1.4 or later
 2. Clone this repo with
 
    ```
-   git clone https://github.com/GoogleCloudPlatform/appengine-python-flask-skeleton.git
+   git clone https://github.com/duyet-website/api.duyet.net
    ```
 3. Install dependencies in the project's lib directory.
    Note: App Engine can only import libraries from inside your project directory.
 
    ```
-   cd appengine-python-flask-skeleton
+   cd api.duyet.net
    pip install -r requirements.txt -t lib
    ```
 4. Run this project locally from the command line:
@@ -40,7 +40,7 @@ To deploy the application:
    application](https://developers.google.com/appengine/docs/python/tools/uploadinganapp) with
 
    ```
-   appcfg.py -A <your-project-id> --oauth2 update .
+   gcloud app deploy
    ```
 
 ### Feedback
