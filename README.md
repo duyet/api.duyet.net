@@ -4,6 +4,11 @@ Free public api service.
 
 ![api.duyet.net](screenshot.png)
 
+## More useful API?
+
+[Make a Request](https://github.com/duyet-website/api.duyet.net/issues/new) about your new API idea :D 
+
+
 ## Run Locally
 1. Install the [App Engine Python SDK](https://developers.google.com/appengine/downloads).
 See the README file for directions. You'll need python 2.7 and [pip 1.4 or later](http://www.pip-installer.org/en/latest/installing.html) installed too.
