@@ -1,5 +1,5 @@
 from flask import Flask, Response, render_template, \
-	request, json, jsonify
+	request, json, jsonify, make_response
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import time
@@ -20,6 +20,12 @@ limiter = Limiter(
 	app,
 	key_func=get_remote_address,
 )
+
+@app.errorhandler(429)
+def ratelimit_handler(e):
+	return make_response(
+		jsonify(error="ratelimit exceeded %s" % e.description), 429
+	)
 
 def root_dir():  # pragma: no cover
     return os.path.abspath(os.path.join(os.path.dirname(__file__), 'templates'))
@@ -46,7 +52,7 @@ def ping():
 """ Male for female gender """
 @app.route('/api/v1/gender')
 @limiter.limit("5000 per day")
-@limiter.limit("50 per hour")
+@limiter.limit("500 per hour")
 def gender_api():
 	s_time = time.time()
 	name = request.args.get('name') or request.args.get('first_name', '')
@@ -62,7 +68,7 @@ def gender_view():
 """ Relevant api skills """
 @app.route('/api/v1/similar_skill')
 @limiter.limit("5000 per day")
-@limiter.limit("50 per hour")
+@limiter.limit("500 per hour")
 def skill_api():
 	s_time = time.time()
 	skill = request.args.get('skill') or request.args.get('skills', '')
@@ -79,7 +85,7 @@ def similar_skill_view():
 """ Skill Cleaning """
 @app.route('/api/v1/clean_skill')
 @limiter.limit("5000 per day")
-@limiter.limit("50 per hour")
+@limiter.limit("500 per hour")
 def clean_skill():
 	s_time = time.time()
 	skill = request.args.get('skill') or request.args.get('skills', '')
@@ -91,7 +97,7 @@ def clean_skill():
 """ Skill Cleaning """
 @app.route('/api/v1/clean_datetime')
 @limiter.limit("5000 per day")
-@limiter.limit("50 per hour")
+@limiter.limit("500 per hour")
 def clean_datetime_api():
 	s_time = time.time()
 	datetime = request.args.get('datetime') or request.args.get('d', '')
@@ -107,14 +113,14 @@ def clean_datetime_api():
 """ Profile faker generator """
 @app.route('/api/v1/profile_faker')
 @limiter.limit("5000 per day")
-@limiter.limit("50 per hour")
+@limiter.limit("500 per hour")
 def profile_faker_api():
 	return jsonify(profile_faker())
 
 """ Sentiment analytics  """
 @app.route('/api/v1/senti')
 @limiter.limit("5000 per day")
-@limiter.limit("50 per hour")
+@limiter.limit("500 per hour")
 def senti_api():
 	text = request.args.get('text') or request.args.get('t', '')
 	if not text:
