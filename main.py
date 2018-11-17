@@ -8,8 +8,8 @@ import urllib
 import os
 
 from api.gender import name_to_gender
-from api.relevant_skills import relevant_skill
-from api.clean_skill import skill_transform
+from api.similar_skill import similar_skill
+from api.clean_skill import clean_skill 
 from api.clean_datetime import clean_datetime
 from api.profile_faker import profile_faker
 
@@ -60,21 +60,21 @@ def gender_view():
     return render_template('gender.html')
 
 """ Relevant api skills """
-@app.route('/api/v1/relevant_skill')
+@app.route('/api/v1/similar_skill')
 @limiter.limit("5000 per day")
 @limiter.limit("50 per hour")
 def skill_api():
 	s_time = time.time()
 	skill = request.args.get('skill') or request.args.get('skills', '')
-	result = relevant_skill(skill)
+	result = similar_skill(skill)
 	print result, skill
 	e_time = time.time() - s_time
-	return jsonify(relevant_skill=skill, time=e_time)
+	return jsonify(similar_skill=skill, time=e_time)
 
-@app.route('/relevant_skill')
+@app.route('/similar_skill')
 @limiter.exempt
-def relevant_skill_view():
-    return render_template('relevant_skill.html')
+def similar_skill_view():
+    return render_template('similar_skill.html')
 
 """ Skill Cleaning """
 @app.route('/api/v1/clean_skill')
@@ -83,7 +83,7 @@ def relevant_skill_view():
 def clean_skill():
 	s_time = time.time()
 	skill = request.args.get('skill') or request.args.get('skills', '')
-	result = skill_transform(skill)
+	result = clean_skill(skill)
 	print result, skill
 	e_time = time.time() - s_time
 	return jsonify(raw=skill, cleaned=result, time=e_time)

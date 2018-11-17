@@ -28,6 +28,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
 	<script id="api-list-template" type="text/x-handlebars-template">
 		{{#each apis}}
+			{{# unless disabled}}
 			<div class="row api-line">
 				<div class="col-md-3">
 					<h4> <img src="{{icon}}" class="" /> {{name}}</h4>
@@ -74,6 +75,7 @@
 					</ul>
 				</div>
 			</div>
+			{{/unless}}
 		{{/each}}
 	</script>
 
@@ -164,11 +166,12 @@
 				},
 				{
 					name: 'Relevant skills',
-					ui_demo_link: '/relevant_skill',
+					disabled: true,
+					ui_demo_link: '/similar_skill',
 					desc: 'Find top 5 relevant skill from input.',
 					icon: '/static/img/skills.png',
 					method: 'GET',
-					endpoint: '/api/v1/relevant_skill',
+					endpoint: '/api/v1/similar_skill',
 					limits: ['5000 per day', '50 per hour'],
 					params: [
 						{
@@ -179,15 +182,15 @@
 					],
 					responses: [
 						{
-							name: 'relevant_skill',
+							name: 'similar_skill',
 							type: 'array',
 							desc: 'list of relevant skill'
 						},
 					],
 					example_links: [
-						'http://api.duyet.net/api/v1/relevant_skill?skill=java',
-						'http://api.duyet.net/api/v1/relevant_skill?skill=python',
-						'http://api.duyet.net/api/v1/relevant_skill?skill=javascript',
+						'http://api.duyet.net/api/v1/similar_skill?skill=java',
+						'http://api.duyet.net/api/v1/similar_skill?skill=python',
+						'http://api.duyet.net/api/v1/similar_skill?skill=javascript',
 					]
 				},
 				{
