@@ -23,7 +23,7 @@
     "uglify-js": "2.8.29",
     "tsify": "0.16.0",
     "watchify": "3.11.1",
-    "http-server": "0.13.0"
+    "http-server": "14.1.0"
   },
   "dependencies": {
     "catw": "1.0.1",
