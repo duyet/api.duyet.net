@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "typescript": "4.6.3",
-    "typings": "0.8.1",
+    "typings": "2.1.1",
     "uglify-js": "2.8.29",
     "tsify": "5.0.4",
     "watchify": "3.11.1",
