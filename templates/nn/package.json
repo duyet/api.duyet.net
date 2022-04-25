@@ -21,7 +21,7 @@
     "typescript": "1.8.10",
     "typings": "0.7.12",
     "uglify-js": "2.8.29",
-    "tsify": "0.14.8",
+    "tsify": "0.16.0",
     "watchify": "3.11.1",
     "http-server": "0.13.0"
   },
