@@ -20,7 +20,7 @@
   "devDependencies": {
     "typescript": "4.7.4",
     "typings": "2.1.1",
-    "uglify-js": "3.16.2",
+    "uglify-js": "3.16.3",
     "tsify": "5.0.4",
     "watchify": "4.0.0",
     "http-server": "14.1.1"
