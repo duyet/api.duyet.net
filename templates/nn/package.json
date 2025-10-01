@@ -18,7 +18,7 @@
     "serve-watch": "http-server dist/ & npm run watch"
   },
   "devDependencies": {
-    "typescript": "5.9.2",
+    "typescript": "5.9.3",
     "typings": "2.1.1",
     "uglify-js": "3.19.3",
     "tsify": "5.0.4",
