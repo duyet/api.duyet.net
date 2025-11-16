@@ -1,6 +1,5 @@
 """Tests for Gender API endpoint."""
 
-import pytest
 import json
 
 

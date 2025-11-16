@@ -1,8 +1,6 @@
 """Tests for all other API endpoints."""
 
-import pytest
 import json
-from unittest.mock import patch, Mock
 
 
 class TestProfileFakerAPI:

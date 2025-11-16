@@ -1,6 +1,5 @@
 """Tests for Clean Skill API endpoint."""
 
-import pytest
 import json
 
 

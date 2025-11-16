@@ -20,7 +20,8 @@ def clean_skill(skill, remove_stopwords=True):
     skill = skill.replace("_", " ").split()
     skill = " ".join([sk for sk in skill if sk])
 
-    skill = re.sub(r"\(.*\)", "", skill)
+    # Use non-greedy match to prevent ReDoS vulnerability
+    skill = re.sub(r"\([^)]*\)", "", skill)
     skill = (
         skill.replace("-", "")
         .replace("(", "")
@@ -125,7 +126,8 @@ def clean_skill(skill, remove_stopwords=True):
             "application",
             "programming",
             "program",
-            "design" "developer",
+            "design",
+            "developer",
             "framework",
             "development",
             "programmer",
@@ -143,12 +145,12 @@ def clean_skill(skill, remove_stopwords=True):
     try:
         skill = skill.split("/")
         skill = skill[0]
-    except:
+    except (IndexError, AttributeError):
         pass
     try:
         skill = skill.split(";")
         skill = skill[0]
-    except:
+    except (IndexError, AttributeError):
         pass
 
     skill = skill.lower().strip().replace(" ", "_")

@@ -19,6 +19,27 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+
+def sanitize_for_log(user_input: str, max_length: int = 100) -> str:
+    """Sanitize user input for safe logging (prevent log injection).
+
+    Args:
+        user_input: Raw user input
+        max_length: Maximum length to log
+
+    Returns:
+        str: Sanitized string safe for logging
+    """
+    if not user_input:
+        return ""
+    # Remove newlines, carriage returns, and other control characters
+    sanitized = user_input.replace("\n", " ").replace("\r", " ").replace("\t", " ")
+    # Limit length
+    if len(sanitized) > max_length:
+        sanitized = sanitized[:max_length] + "..."
+    return sanitized
+
+
 # Initialize Flask app
 app = Flask(__name__)
 app.config["DEBUG"] = os.environ.get("FLASK_DEBUG", "False").lower() == "true"
@@ -74,7 +95,8 @@ def get_file(filename):  # pragma: no cover
         src = os.path.join(root_dir(), filename)
         return open(src).read()
     except IOError as exc:
-        return str(exc)
+        logger.error(f"Failed to read file {filename}: {str(exc)}")
+        return "Error loading page. Please try again later."
 
 
 @app.route("/")
@@ -158,7 +180,7 @@ def similar_skill_api():
 
     try:
         result = similar_skill(skill)
-        logger.info(f"Similar skill query: {skill}")
+        logger.info(f"Similar skill query: {sanitize_for_log(skill)}")
         e_time = time.time() - s_time
         return jsonify(input_skill=skill, similar_skills=result, time=e_time)
     except Exception as e:
@@ -199,7 +221,7 @@ def clean_skill_api():
 
     try:
         result = clean_skill_func(skill)
-        logger.info(f"Clean skill: {skill} -> {result}")
+        logger.info(f"Clean skill: {sanitize_for_log(skill)} -> {sanitize_for_log(result)}")
         e_time = time.time() - s_time
         return jsonify(raw=skill, cleaned=result, time=e_time)
     except Exception as e:
