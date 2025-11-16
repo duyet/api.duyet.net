@@ -32,6 +32,7 @@
 - [Testing](#testing)
 - [Deployment](#deployment)
 - [Contributing](#contributing)
+- [Project Philosophy](#project-philosophy)
 - [License](#license)
 
 ## 🌐 API Endpoints
@@ -260,7 +261,7 @@ docker push gcr.io/your-project/api-duyet:latest
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details and [CLAUDE.md](CLAUDE.md) for project philosophy and guidelines.
 
 ### Quick Contribution Guide
 
@@ -315,6 +316,23 @@ Have an idea for a new API endpoint? [Create an issue](https://github.com/duyetd
 
 ### Version 1.0.0
 - Initial release with basic API endpoints
+
+## 🎯 Project Philosophy
+
+This project follows a clear set of principles and guidelines documented in [CLAUDE.md](CLAUDE.md).
+
+**Core Values:**
+- **Free & Accessible** - No API keys, generous rate limits
+- **Developer-First** - Helpful errors, clear docs, fast responses
+- **Production-Grade** - Secure, tested, modern practices
+
+**Key Principles:**
+- Keep it simple, but not simpler
+- Every error is an opportunity to teach
+- Security is not optional
+- Clarity over cleverness
+
+For detailed architecture principles, code style guidelines, security best practices, and lessons learned from past bugs, see [CLAUDE.md](CLAUDE.md).
 
 ## 📄 License
 
