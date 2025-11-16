@@ -1,12 +1,20 @@
 # encoding: utf8
 
 import re
-import HTMLParser
-html_parser = HTMLParser.HTMLParser()
+import html
 
 def clean_skill(skill, remove_stopwords = True):
-    skill = unicode(skill)
-    skill = html_parser.unescape(skill)
+    """Clean and normalize skill/technology names.
+
+    Args:
+        skill: Raw skill name to clean
+        remove_stopwords: Whether to remove common stopwords
+
+    Returns:
+        str: Cleaned and normalized skill name
+    """
+    skill = str(skill)
+    skill = html.unescape(skill)
     
     skill = skill.replace("_", " ").split()
     skill = " ".join([sk for sk in skill if sk])
