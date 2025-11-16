@@ -1,10 +1,11 @@
 """Pytest configuration and fixtures."""
+
 import pytest
 import sys
 import os
 
 # Add parent directory to path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from main import app as flask_app
 
@@ -12,8 +13,8 @@ from main import app as flask_app
 @pytest.fixture
 def app():
     """Create and configure a test instance of the Flask app."""
-    flask_app.config['TESTING'] = True
-    flask_app.config['DEBUG'] = False
+    flask_app.config["TESTING"] = True
+    flask_app.config["DEBUG"] = False
     yield flask_app
 
 
