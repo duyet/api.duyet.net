@@ -1,0 +1,70 @@
+[tool.black]
+line-length = 100
+target-version = ['py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+  | lib
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+skip_glob = ["lib/*", "venv/*", ".venv/*"]
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+exclude = ['lib/', 'venv/', '.venv/']
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra -q --cov=api --cov=. --cov-report=term-missing --cov-report=html"
+testpaths = [
+    "tests",
+]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+
+[tool.bandit]
+exclude_dirs = ["tests", "lib", "venv", ".venv"]
+skips = ["B101"]
+
+[tool.coverage.run]
+omit = [
+    "*/tests/*",
+    "*/lib/*",
+    "*/venv/*",
+    "*/.venv/*",
+    "vendor.py",
+    "appengine_config.py"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
