@@ -1,0 +1,9 @@
+[flake8]
+exclude =
+    lib,
+    .venv,
+    venv,
+    .git,
+    __pycache__,
+    build,
+    dist
