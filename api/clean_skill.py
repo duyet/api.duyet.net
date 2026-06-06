@@ -22,8 +22,13 @@ def clean_skill(skill, remove_stopwords=True):
     skill = skill.replace("_", " ").split()
     skill = " ".join([sk for sk in skill if sk])
 
-    # Remove parenthesized text; [^)]* is safe (no backtracking ambiguity)
-    skill = re.sub(r"\([^)]*\)", "", skill)
+    # Remove parenthesized text using linear scan (avoids ReDoS risk)
+    while "(" in skill and ")" in skill:
+        start = skill.find("(")
+        end = skill.find(")", start)
+        if start == -1 or end == -1:
+            break
+        skill = skill[:start] + skill[end + 1 :]
     skill = (
         skill.replace("-", "")
         .replace("(", "")
