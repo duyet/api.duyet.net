@@ -1,7 +1,7 @@
 # encoding: utf8
 
-import re
 import html
+import re
 
 
 def clean_skill(skill, remove_stopwords=True):

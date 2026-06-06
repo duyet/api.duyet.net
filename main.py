@@ -1,17 +1,18 @@
-from flask import Flask, Response, render_template, request, jsonify, make_response
+import logging
+import os
+import time
+
+import requests
+from flask import Flask, Response, jsonify, make_response, render_template, request
+from flask_compress import Compress
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-import time
-import os
-import logging
-import requests
-from flask_compress import Compress
 
-from api.gender import name_to_gender
-from api.similar_skill import similar_skill
-from api.clean_skill import clean_skill as clean_skill_func
 from api.clean_datetime import clean_datetime
+from api.clean_skill import clean_skill as clean_skill_func
+from api.gender import name_to_gender
 from api.profile_faker import profile_faker
+from api.similar_skill import similar_skill
 
 # Configure logging
 logging.basicConfig(
@@ -48,8 +49,8 @@ app.config["DEBUG"] = os.environ.get("FLASK_DEBUG", "False").lower() == "true"
 Compress(app)
 
 limiter = Limiter(
-    app,
     key_func=get_remote_address,
+    app=app,
 )
 
 

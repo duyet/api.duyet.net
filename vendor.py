@@ -21,8 +21,8 @@
 # - Renamed `position` param to `index` to match upcoming SDK interface.
 # - Removed funny arworks docstring.
 
-import site
 import os.path
+import site
 import sys
 
 
