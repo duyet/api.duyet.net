@@ -1,5 +1,4 @@
 # Clean
-import datetime
 import datetime as dt
 import time
 

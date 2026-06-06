@@ -15,12 +15,14 @@ def clean_skill(skill, remove_stopwords=True):
         str: Cleaned and normalized skill name
     """
     skill = str(skill)
+    # Limit input length to prevent ReDoS on regex operations
+    skill = skill[:500]
     skill = html.unescape(skill)
 
     skill = skill.replace("_", " ").split()
     skill = " ".join([sk for sk in skill if sk])
 
-    # Use non-greedy match to prevent ReDoS vulnerability
+    # Remove parenthesized text; [^)]* is safe (no backtracking ambiguity)
     skill = re.sub(r"\([^)]*\)", "", skill)
     skill = (
         skill.replace("-", "")
@@ -146,12 +148,12 @@ def clean_skill(skill, remove_stopwords=True):
         skill = skill.split("/")
         skill = skill[0]
     except (IndexError, AttributeError):
-        pass
+        pass  # skill remains as-is if split fails
     try:
         skill = skill.split(";")
         skill = skill[0]
     except (IndexError, AttributeError):
-        pass
+        pass  # skill remains as-is if split fails
 
     skill = skill.lower().strip().replace(" ", "_")
     skill = re.sub(" +", " ", skill)
