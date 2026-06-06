@@ -3,7 +3,7 @@
 
 # Core framework
 flask==3.1.3
-werkzeug==3.1.3
+werkzeug==3.1.6
 
 # API & Web
 gunicorn==23.0.0
