@@ -19,7 +19,7 @@ isort==5.13.2
 pylint==3.3.9
 
 # Security scanning
-bandit==1.8.0
+bandit==1.9.4
 safety==3.2.11
 
 # Pre-commit hooks
