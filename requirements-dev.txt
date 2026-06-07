@@ -16,7 +16,7 @@ black==26.3.1
 flake8==7.1.1
 mypy==1.13.0
 isort==5.13.2
-pylint==3.3.2
+pylint==3.3.9
 
 # Security scanning
 bandit==1.8.0
