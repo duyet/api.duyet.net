@@ -20,7 +20,7 @@ pylint==3.3.9
 
 # Security scanning
 bandit==1.9.4
-safety==3.2.11
+safety==3.8.1
 
 # Pre-commit hooks
 pre-commit==4.6.0
