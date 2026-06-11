@@ -16,4 +16,4 @@ Faker==30.10.0
 nltk==3.9.4
 
 # Security
-cryptography==46.0.7
+cryptography==48.0.1
