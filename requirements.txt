@@ -8,7 +8,7 @@ werkzeug==3.1.8
 # API & Web
 gunicorn==23.0.0
 requests==2.34.2
-flask-limiter==3.12
+flask-limiter==4.1.1
 flask-compress==1.24
 
 # Data generation & processing
