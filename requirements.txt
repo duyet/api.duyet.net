@@ -13,7 +13,7 @@ flask-compress==1.24
 
 # Data generation & processing
 Faker==40.36.0
-nltk==3.10.0
+nltk==3.10.1
 
 # Security
 cryptography==50.0.0
