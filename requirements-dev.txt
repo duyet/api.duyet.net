@@ -26,5 +26,5 @@ safety==3.8.1
 pre-commit==4.6.2
 
 # Development tools
-ipython==9.17.0
+ipython==9.17.1
 python-dotenv==1.2.3
