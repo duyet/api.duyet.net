@@ -13,7 +13,7 @@ responses==0.26.3
 
 # Code quality & formatting
 black==26.10.1
-flake8==7.1.1
+flake8==7.4.1
 mypy==2.4.0
 isort==9.0.2
 pylint==4.1.2
